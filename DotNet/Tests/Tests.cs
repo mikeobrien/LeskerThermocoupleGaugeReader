@@ -28,12 +28,13 @@ namespace Tests
         public void should_read_data()
         {
             //"1999. \r\n"
+            //"_---. \r\n"
             var port = new MemoryPort();
             var data = new List<Reading>();
             using (var reader = new Reader(port))
             {
                 reader.Open(data.Add);
-                port.Write("1999. \r\n", "1", "2", "3", "4", ".", " ", "\r", "\n", "11", "11", ". ",  
+                port.Write("_---. \r\n", "1999. \r\n", "1", "2", "3", "4", ".", " ", "\r", "\n", "11", "11", ". ",  
                     "\r\n", "0999. \r\n08", "88. \r\n7777. \r\n6666. \r\n5555. \r", "\n");
             }
 

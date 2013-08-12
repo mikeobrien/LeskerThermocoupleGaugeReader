@@ -45,12 +45,13 @@ namespace LeskerThermocoupleGauge
                 var index = _buffer.LastIndexOf("\r\n");
                 if (index >= 0)
                 {
-                    results = _buffer.Substring(0, ++index);
-                    _buffer = ++index == _buffer.Length ? "" : _buffer.Substring(index);
+                    index += 2;
+                    results = _buffer.Substring(0, index);
+                    _buffer = index == _buffer.Length ? "" : _buffer.Substring(index);
                 }
             }
-            if (results != null) results.Split(new[] { "\r\n" }, StringSplitOptions.None)
-                .ToList().ForEach(x => dataHandler(new Reading(decimal.Parse(x.Trim()))));
+            if (results != null) results.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries)
+                .Where(x => x != "_---. ").ToList().ForEach(x => dataHandler(new Reading(decimal.Parse(x.Trim()))));
         }
 
         public void Close()
